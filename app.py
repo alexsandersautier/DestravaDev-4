@@ -22,44 +22,39 @@ while executing:
     list_all()  
     print('\nBem-vindo ao Gerenciador de Tarefas Command Line!\n')
     print('\nDigite um número para selecionar uma opção\n')
-    print('1 - Nova \n2 - Atualizar \n3 - Concluir \n4 - Deletar \n5 - Sair \nDigite sua opção: ')
-    option = sys.stdin.readline()
-    option = int(option.replace('\n', ''))
+    
+    option = input('1 - Nova \n2 - Atualizar \n3 - Concluir \n4 - Deletar \n5 - Sair \nDigite sua opção: ')
+    option = int(option)
     match option:
         case 1:
-            print('Descreva a tarefa: ')
-            task = sys.stdin.readline()
-            con.create(task.replace('\n', ''))
+            task = input('Descreva a tarefa: ')
+            con.create(task)
             clear()
         case 2:
             list_all()
-            print('Digite o número da tarefa para ser atualizada: ')
-            id = sys.stdin.readline()
-            task = con.select_by_id(id.replace('\n', ''))    
+            id = input('Digite o número da tarefa para ser atualizada: ')
+            task = con.select_by_id(id)    
             print(f'\n{task[1]}\n')
             if task[2]:
                 print('\nNão é possível atualizar tarefas finalizadas\n')        
             elif task:
-                print('Descreva a tarefa: ')
-                update = sys.stdin.readline()
-                con.update(id.replace('\n', ''), update.replace('\n', ''))
+                update = input('Descreva a tarefa: ')
+                con.update(id, update)
             clear()    
         case 3:
             list_all()
-            print('Digite o número da tarefa para ser concluida: ')
-            id = sys.stdin.readline()
-            con.update(id.replace('\n', ''), '', True)
+            id = input('Digite o número da tarefa para ser concluida: ')
+            con.update(id, '', True)
             clear()
         case 4:
             list_all()
-            print('Digite o número da tarefa para ser deletada: ')
-            id = sys.stdin.readline()
-            task = con.select_by_id(id.replace('\n', ''))
+            id = input('Digite o número da tarefa para ser deletada: ')
+            task = con.select_by_id(id)
             if task[2]:
                 print('\nNão é possível deletar tarefas finalizadas\n')    
                 sleep(2)
             else:
-                con.delete(id.replace('\n', ''))
+                con.delete(id)
             clear()    
         case 5:
             print('\nObrigado por utilizar meu software')
